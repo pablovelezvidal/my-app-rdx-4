@@ -1,4 +1,5 @@
 import { createStore } from 'redux';
+import constants from './constants';
 
 const initialState = {
     inputText: '',
@@ -7,9 +8,9 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'CHANGE_INPUT_TEXT':
+        case constants.CHANGE_INPUT_TEXT:
             return Object.assign({}, state, { inputText : action.inputText });
-        case 'ADD_ITEM':
+        case constants.ADD_ITEM:
             if (state.inputText !== "") {
                 return Object.assign({}, state, {
                     items: state.items.concat(state.inputText),
@@ -18,6 +19,9 @@ const reducer = (state = initialState, action) => {
             } else {
                 return state;
             }
+        case constants.DELETE_ITEM:
+            const itemsFiltered = state.items.filter((item, index) => index !== action.index);
+            return Object.assign({}, state, { items: itemsFiltered });
         default:
             return state;
     }

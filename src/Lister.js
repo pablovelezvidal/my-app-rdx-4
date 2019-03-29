@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import constants from './store/constants';
+
 
 function Lister (props) {
     return (
@@ -9,7 +11,7 @@ function Lister (props) {
             </form>
             <ul>
                 { props.items.map((item, index) => {
-                    return <li key={ index }>{ item }</li>
+                    return <li key={ index } onClick={ () => props.deleteRow(index) } >{ item }</li>
                 }) }
             </ul>
         </div>
@@ -26,12 +28,19 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         inputChange: (evt) => {
-            const action = { type: 'CHANGE_INPUT_TEXT', inputText: evt.target.value };
+            const action = { type: constants.CHANGE_INPUT_TEXT, inputText: evt.target.value };
             dispatch(action);
         },
         submit: (evt) => {
             evt.preventDefault();
-            const action = { type: 'ADD_ITEM' };
+            const action = { type: constants.ADD_ITEM };
+            dispatch(action);
+        },
+        deleteRow: (index) => {
+            const action = {
+                type: constants.DELETE_ITEM,
+                index: index
+            };
             dispatch(action);
         }
     }
