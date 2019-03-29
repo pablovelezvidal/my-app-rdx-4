@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import constants from './store/constants';
+import Footer from './Footer';
 
 
 function Lister (props) {
     return (
         <div>
+            <h1>Lister</h1>
             <form onSubmit={ props.submit }>
                 <input value={ props.inputText } onChange={ props.inputChange } />
             </form>
@@ -14,6 +16,7 @@ function Lister (props) {
                     return <li key={ index } onClick={ () => props.deleteRow(index) } >{ item }</li>
                 }) }
             </ul>
+            <Footer />
         </div>
     );
 }
